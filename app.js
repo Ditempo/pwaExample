@@ -25,8 +25,8 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Credentials", true);
   next();
 });
-app.get("/", (req, res) => {
-	res.send({ hello: "world" });
+app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname+'/client/build/index.html'));
 });
 app.use("/api", require("./routes/index"));
 http.createServer(app).listen(PORT, () => {
