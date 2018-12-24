@@ -1,6 +1,5 @@
 const express = require("express"),
   router = express.Router();
-const test = require("./testApi/index");
-console.log("api");
-router.use("/test", test);
+const controller = require("./Api.controller");
+router.route("/course").get(controller.getCourse);
 module.exports = router;

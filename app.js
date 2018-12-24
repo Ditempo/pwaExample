@@ -3,7 +3,7 @@ const express = require("express"),
   bodyParser = require("body-parser"),
   morgan = require("morgan");
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 4000;
 app.use(morgan("dev"));
 app.use(
   bodyParser.urlencoded({
@@ -24,6 +24,9 @@ app.use((req, res, next) => {
   );
   res.setHeader("Access-Control-Allow-Credentials", true);
   next();
+});
+app.get("/", (req, res) => {
+	res.send({ hello: "world" });
 });
 app.use("/api", require("./routes/index"));
 http.createServer(app).listen(PORT, () => {
