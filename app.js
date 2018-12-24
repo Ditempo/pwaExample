@@ -1,10 +1,9 @@
 const express = require("express"),
   http = require("http"),
-  https = require("https"),
   bodyParser = require("body-parser"),
   morgan = require("morgan");
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT;
 app.use(morgan("dev"));
 app.use(
   bodyParser.urlencoded({
@@ -26,7 +25,7 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Credentials", true);
   next();
 });
-app.use("/api", require("./routes"));
+app.use("/api", require("./routes/index"));
 http.createServer(app).listen(PORT, () => {
   console.log(`SERVER MESSAGE : HTTP Server running on PORT: ${PORT}`);
 });
