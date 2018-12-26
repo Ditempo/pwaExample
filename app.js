@@ -13,7 +13,7 @@ app.use(
 		parameterLimit: 1000000
 	})
 );
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, 'client/public')));
 app.use((req, res, next) => {
 	res.setHeader("Access-Control-Allow-Origin", "*");
 	res.setHeader(
@@ -29,7 +29,7 @@ app.use((req, res, next) => {
 });
 app.use("/api", require("./routes/index"));
 app.get("/", (req, res) => {
-	res.sendFile(path.join(__dirname + '/client/build/index.html'));
+	res.sendFile(path.join(__dirname + '/client/public/index.html'));
 });
 http.createServer(app).listen(PORT, () => {
 	console.log(`SERVER MESSAGE : HTTP Server running on PORT: ${PORT}`);
