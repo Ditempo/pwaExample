@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import './App.css';
 
 class App extends Component {
 	state = {
@@ -7,21 +6,24 @@ class App extends Component {
 		loaded: false,
 	};
 
-	async componentDidMount() {
-		await this.getData();
+	componentDidMount() {
+		this.getData();
 	}
 
-	getData = async () => {
+	getData = () => {
 		this.setState({loaded: false});
 		fetch("/api/course")
 			.then(res => res.json())
 			.then(data => this.setState({loaded: true, data: data.here}))
-			.catch(e => console.log(e));
+			.catch(e => {
+				console.log(e);
+				this.setState({loaded: true, data: "not here..."});
+			});
 	};
 
 	render() {
 		return (
-			<div className="App">
+			<div>
 				{
 					this.state.loaded ?
 						<h1>{this.state.data}</h1>
