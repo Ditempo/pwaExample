@@ -15,11 +15,7 @@ class App extends Component {
 		this.setState({loaded: false});
 		fetch("/api/course")
 			.then(res => res.json())
-			.then(data => {
-				console.log(data);
-				return data;
-			})
-			.then(data => this.setState({loaded: true, data}))
+			.then(data => this.setState({loaded: true, data: data.here}))
 			.catch(e => console.log(e));
 	};
 
