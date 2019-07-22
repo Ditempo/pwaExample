@@ -1,19 +1,34 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
-import './App.css';
 
 class App extends Component {
-	state = {data: ""};
+	state = {
+		data: "",
+		loaded: false,
+	};
 
-	async componentDidMount() {
-		const data = await fetch("/api/course");
-		this.setState({data: data});
+	componentDidMount() {
+		this.getData();
 	}
+
+	getData = () => {
+		this.setState({loaded: false});
+		fetch("/api/course")
+			.then(res => res.json())
+			.then(data => this.setState({loaded: true, data: data.here}))
+			.catch(e => {
+				console.log(e);
+				this.setState({loaded: true, data: "not here..."});
+			});
+	};
 
 	render() {
 		return (
-			<div className="App">
-				<h1>{this.state.data}</h1>
+			<div>
+				{
+					this.state.loaded ?
+						<h1>{this.state.data}</h1>
+						: <h1>{"isLoaded"}</h1>
+				}
 			</div>
 		);
 	}
